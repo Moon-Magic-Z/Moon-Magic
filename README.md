@@ -1,6 +1,8 @@
 # Moon-Magic
 Behold! You and your friends can see one another's looks!
 
+https://raw.githubusercontent.com/Moon-Magic-Z/Moon-Magic/main/repo.json
+
 # 🌙 Moon Magic
 
 Moon Magic is an **all-in-one Dalamud plugin** for Final Fantasy XIV that unifies common modding workflows into a single interface:
