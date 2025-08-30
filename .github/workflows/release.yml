@@ -1,0 +1,76 @@
+name: Build & Release Moon Magic
+
+on:
+  push:
+    tags:
+      - 'v*'     # e.g. v0.1.0, v0.1.1, etc.
+
+permissions:
+  contents: write    # needed to create releases and push repo.json updates
+
+jobs:
+  build-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore MoonMagic/MoonMagic.csproj
+
+      - name: Build (Release)
+        run: dotnet build -c Release MoonMagic/MoonMagic.csproj
+
+      # DalamudPackager should have produced dist/latest.zip under the build output
+      - name: Locate dist zip
+        id: findzip
+        shell: pwsh
+        run: |
+          $zip = Get-ChildItem -Recurse -File -Filter latest.zip | Select-Object -First 1
+          if (-not $zip) { throw "latest.zip not found. Ensure DalamudPackager is referenced and Manifest.json is present." }
+          echo "zip_path=$($zip.FullName)" >> $env:GITHUB_OUTPUT
+
+      - name: Create or update GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: "Moon Magic release ${{ github.ref_name }}"
+          draft: false
+          prerelease: false
+          files: |
+            ${{ steps.findzip.outputs.zip_path }}
+
+      - name: Update repo.json (download links + LastUpdate)
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          $owner = "${{ github.repository_owner }}"
+          $repo  = "${{ github.event.repository.name }}"
+          $url   = "https://github.com/$owner/$repo/releases/download/$tag/latest.zip"
+          $stamp = [int][double]::Parse((Get-Date -Date (Get-Date).ToUniversalTime() -UFormat %s))
+
+          $path = Join-Path $env:GITHUB_WORKSPACE "repo.json"
+          if (-not (Test-Path $path)) { throw "repo.json not found at repo root." }
+
+          $json = Get-Content $path -Raw | ConvertFrom-Json
+          # repo.json is an array with one object
+          $json[0].DownloadLinkInstall = $url
+          $json[0].DownloadLinkUpdate  = $url
+          $json[0].LastUpdate          = "$stamp"
+
+          # Write back (preserve array form)
+          $json | ConvertTo-Json -Depth 8 | Out-File -FilePath $path -Encoding utf8
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add repo.json
+          git commit -m "chore: update repo.json for $tag" || echo "No changes to commit"
+          git push
