@@ -3,15 +3,10 @@
   "Author": "Moon Magic Team",
   "Punchline": "Wardrobe & Glamours, one click.",
   "Description": "Penumbra conflict manager, Glamourer design switcher, and migration from Mare/Snowcloak.",
-  "RepoUrl": "https://github.com/moon-magic-project/moon-magic",
-  "Tags": [
-    "mods",
-    "penumbra",
-    "glamourer",
-    "sync"
-  ],
-  "InternalName": "MoonMagic",
+  "RepoUrl": "https://github.com/Moon-Magic-Z/Moon-Magic",                    // <— YOU
+  "Tags": ["mods","penumbra","glamourer","sync"],
+  "InternalName": "MoonMagic",                                                // must equal repo.json InternalName
   "AssemblyVersion": "0.1.0",
   "DalamudApiLevel": 13,
-  "IconUrl": "https://raw.githubusercontent.com/moon-magic-project/moon-magic/main/assets/icon-128.png"
+  "IconUrl": "https://raw.githubusercontent.com/Moon-Magic-Z/Moon-Magic/main/assets/icon-128.png" // <— YOU
 }
