@@ -1,0 +1,20 @@
+[
+  {
+    "Author": "Moon Magic Team",
+    "Name": "Moon Magic",
+    "Description": "Penumbra conflict manager + Glamourer one-click switching + importer from Mare/Snowcloak.",
+    "InternalName": "MoonMagic",
+    "AssemblyVersion": "0.1.0",
+    "RepoUrl": "https://github.com/moon-magic-project/moon-magic",
+    "ApplicableVersion": "any",
+    "DalamudApiLevel": 13,
+    "Punchline": "Wardrobe & Glamours, one click.",
+    "IsHide": false,
+    "IsTestingExclusive": false,
+    "DownloadLinkInstall": "https://github.com/moon-magic-project/moon-magic/releases/download/v0.1.0/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/moon-magic-project/moon-magic/releases/download/v0.1.0/latest.zip",
+    "LastUpdate": "1756521827",
+    "IconUrl": "https://raw.githubusercontent.com/moon-magic-project/moon-magic/main/assets/icon-128.png",
+    "ImageUrls": []
+  }
+]
