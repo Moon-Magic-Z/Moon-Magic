@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Dalamud plugins are .NET 8 class libraries -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Assembly/namespace -->
+    <AssemblyName>MoonMagic</AssemblyName>
+    <RootNamespace>MoonMagic</RootNamespace>
+
+    <!-- Cleaner output; keep TFMoniker out of folder name -->
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <!-- Create a zip for distribution on Release builds -->
+    <DalamudPackagerMakeZip>true</DalamudPackagerMakeZip>
+    <DalamudPackagerManifestType>json</DalamudPackagerManifestType>
+    <DalamudPackagerManifest>Manifest.json</DalamudPackagerManifest>
+    <DalamudPackagerVersionComponents>3</DalamudPackagerVersionComponents>
+  </PropertyGroup>
+
+  <!-- Reference the runtime Dalamud.dll from XIVLauncher install -->
+  <ItemGroup>
+    <Reference Include="Dalamud">
+      <HintPath>$(AppData)\XIVLauncher\addon\Hooks\Dalamud.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Ensure Manifest.json is copied to output (next to MoonMagic.dll) -->
+  <ItemGroup>
+    <None Update="Manifest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- NuGet: packager that creates dist/latest.zip on build -->
+  <ItemGroup>
+    <PackageReference Include="DalamudPackager" Version="2.*" PrivateAssets="All" />
+  </ItemGroup>
+
+  <!-- Convenience: copy built plugin into devPlugins for in-game testing -->
+  <Target Name="CopyToDevPlugins" AfterTargets="Build">
+    <!-- Only run on Release builds -->
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+      <DevDir>$(AppData)\XIVLauncher\devPlugins\MoonMagic</DevDir>
+      <OutDir>$(MSBuildProjectDirectory)\bin\Release\</OutDir>
+    </PropertyGroup>
+    <Message Text="Copying plugin to: $(DevDir)" Importance="high" Condition="'$(Configuration)'=='Release'" />
+    <MakeDir Directories="$(DevDir)" Condition="'$(Configuration)'=='Release'"/>
+    <Copy SourceFiles="$(OutDir)\MoonMagic.dll" DestinationFolder="$(DevDir)" Condition="'$(Configuration)'=='Release'"/>
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Manifest.json" DestinationFolder="$(DevDir)" Condition="'$(Configuration)'=='Release'"/>
+  </Target>
+
+</Project>
