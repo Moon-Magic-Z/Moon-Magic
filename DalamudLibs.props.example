@@ -1,0 +1,10 @@
+<Project>
+  <!--
+    Copy this file to MoonMagic/DalamudLibs.props and set DalamudHooks to your machine's dev hooks path.
+    Example (Windows):
+      C:\Users\<you>\AppData\Roaming\XIVLauncher\addon\Hooks\dev
+  -->
+  <PropertyGroup>
+    <DalamudHooks>C:\Users\YOU\AppData\Roaming\XIVLauncher\addon\Hooks\dev</DalamudHooks>
+  </PropertyGroup>
+</Project>
