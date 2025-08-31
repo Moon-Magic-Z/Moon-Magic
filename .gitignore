@@ -1,0 +1,23 @@
+# VS / .NET
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# Packages & cache
+packages/
+.nuget/
+
+# Rider/JetBrains
+.idea/
+*.ipr
+*.iws
+*.iml
+
+# Logs
+*.log
+*.tlog
+
+# Local config (see DalamudLibs.props below)
+MoonMagic/DalamudLibs.props
