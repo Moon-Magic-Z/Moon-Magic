@@ -52,14 +52,16 @@ Moon Magic is a **learning project**: it integrates and orchestrates existing pl
 ## 🛠 Installation
 
 ### Development Build
-1. Clone this repo and open `MoonMagic/MoonMagic.csproj` in Visual Studio or Rider (.NET 8).  
-2. Build in **Release** mode.  
-3. Output copies automatically to:  
-   ```
-   %APPDATA%/XIVLauncher/devPlugins/MoonMagic
-   ```  
-4. In **XIVLauncher → Dalamud Settings**: enable *Developer Plugins*.  
-5. In game, type `/moonmagic` to open the plugin.  
+
+1) Install **.NET 9 SDK**.  
+2) Open `MoonMagic/MoonMagic.csproj` in Visual Studio (Release | x64).  
+3) Build → output copies automatically to:
+
+       %APPDATA%/XIVLauncher/devPlugins/MoonMagic
+
+4) In XIVLauncher (Testing/Dev channel) → Dalamud Settings → enable **Developer Plugins**.  
+5) In-game: `/xlplugins` → Installed → **Moon Magic**, or run `/moonmagic`.
+   
 
 ### Public Release
 - When a GitHub Release is tagged (`v0.1.0`, `v0.1.1`, etc.), CI builds and uploads `latest.zip`.  
