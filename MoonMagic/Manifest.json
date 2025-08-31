@@ -1,12 +1,17 @@
 {
   "Name": "Moon Magic",
   "Author": "Moon Magic Team",
-  "Punchline": "Wardrobe & Glamours, one click.",
-  "Description": "Penumbra conflict manager, Glamourer design switcher, and migration from Mare/Snowcloak.",
-  "RepoUrl": "https://github.com/Moon-Magic-Z/Moon-Magic",                    // <— YOU
-  "Tags": ["mods","penumbra","glamourer","sync"],
-  "InternalName": "MoonMagic",                                                // must equal repo.json InternalName
+  "Punchline": "Wardrobe conflicts + Glamourer one-click.",
+  "Description": "Unified mod orchestration for FFXIV: Penumbra conflict manager (Wardrobe), Glamourer one-click outfits (Glamours), importer from Mare/Snowcloak, typed EULA consent, and Ko-fi Donate button.",
+  "RepoUrl": "https://github.com/Moon-Magic-Z/Moon-Magic",
+  "Tags": ["mods", "penumbra", "glamourer", "sync", "wardrobe"],
+  "CategoryTags": ["UI", "Customization"],
+  "InternalName": "MoonMagic",
   "AssemblyVersion": "0.1.0",
   "DalamudApiLevel": 13,
-  "IconUrl": "https://raw.githubusercontent.com/Moon-Magic-Z/Moon-Magic/main/assets/icon-128.png" // <— YOU
+  "ApplicableVersion": "any",
+  "Changelog": "Initial public build.",
+  "IconUrl": "https://raw.githubusercontent.com/Moon-Magic-Z/Moon-Magic/main/assets/icon-128.png",
+  "ImageUrls": [],
+  "LoadPriority": 0
 }
