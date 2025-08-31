@@ -1,56 +1,68 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- Optional import (user-local); ignored if absent -->
+  <Import Project="DalamudLibs.props" Condition="Exists('DalamudLibs.props')" />
+
   <PropertyGroup>
-    <!-- Dalamud plugins are .NET 8 class libraries -->
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 
-    <!-- Assembly/namespace -->
     <AssemblyName>MoonMagic</AssemblyName>
     <RootNamespace>MoonMagic</RootNamespace>
-
-    <!-- Cleaner output; keep TFMoniker out of folder name -->
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 
-    <!-- Create a zip for distribution on Release builds -->
+    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+
+    <!-- DalamudPackager settings -->
     <DalamudPackagerMakeZip>true</DalamudPackagerMakeZip>
     <DalamudPackagerManifestType>json</DalamudPackagerManifestType>
-    <DalamudPackagerManifest>Manifest.json</DalamudPackagerManifest>
+    <DalamudPackagerManifest>$(MSBuildProjectDirectory)\Manifest.json</DalamudPackagerManifest>
     <DalamudPackagerVersionComponents>3</DalamudPackagerVersionComponents>
+
+    <!-- Fallback if DalamudLibs.props not present -->
+    <DalamudHooks Condition="'$(DalamudHooks)'==''">C:\Users\YOU\AppData\Roaming\XIVLauncher\addon\Hooks\dev</DalamudHooks>
   </PropertyGroup>
 
-  <!-- Reference the runtime Dalamud.dll from XIVLauncher install -->
+  <!-- Dalamud references (use $(DalamudHooks)) -->
   <ItemGroup>
     <Reference Include="Dalamud">
-      <HintPath>$(AppData)\XIVLauncher\addon\Hooks\Dalamud.dll</HintPath>
+      <HintPath>$(DalamudHooks)\Dalamud.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Dalamud.Interface">
+      <HintPath>$(DalamudHooks)\Dalamud.Interface.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Dalamud.Bindings.ImGui">
+      <HintPath>$(DalamudHooks)\Dalamud.Bindings.ImGui.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
 
-  <!-- Ensure Manifest.json is copied to output (next to MoonMagic.dll) -->
+  <!-- NuGet packages -->
   <ItemGroup>
-    <None Update="Manifest.json">
+    <PackageReference Include="ImGui.NET" Version="1.90.*" />
+    <PackageReference Include="DalamudPackager" Version="2.*" PrivateAssets="All" />
+  </ItemGroup>
+
+  <!-- Ensure manifest is included -->
+  <ItemGroup>
+    <None Include="Manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
-  <!-- NuGet: packager that creates dist/latest.zip on build -->
-  <ItemGroup>
-    <PackageReference Include="DalamudPackager" Version="2.*" PrivateAssets="All" />
-  </ItemGroup>
-
-  <!-- Convenience: copy built plugin into devPlugins for in-game testing -->
-  <Target Name="CopyToDevPlugins" AfterTargets="Build">
-    <!-- Only run on Release builds -->
-    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+  <!-- Copy to devPlugins on Release builds -->
+  <Target Name="CopyToDevPlugins" AfterTargets="Build" Condition="'$(Configuration)'=='Release'">
+    <PropertyGroup>
       <DevDir>$(AppData)\XIVLauncher\devPlugins\MoonMagic</DevDir>
-      <OutDir>$(MSBuildProjectDirectory)\bin\Release\</OutDir>
     </PropertyGroup>
-    <Message Text="Copying plugin to: $(DevDir)" Importance="high" Condition="'$(Configuration)'=='Release'" />
-    <MakeDir Directories="$(DevDir)" Condition="'$(Configuration)'=='Release'"/>
-    <Copy SourceFiles="$(OutDir)\MoonMagic.dll" DestinationFolder="$(DevDir)" Condition="'$(Configuration)'=='Release'"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\Manifest.json" DestinationFolder="$(DevDir)" Condition="'$(Configuration)'=='Release'"/>
+    <Message Text="Copying plugin to: $(DevDir)" Importance="high" />
+    <MakeDir Directories="$(DevDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DevDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Manifest.json" DestinationFolder="$(DevDir)" SkipUnchangedFiles="true" />
   </Target>
 
 </Project>
