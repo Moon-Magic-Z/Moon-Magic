@@ -2,22 +2,21 @@
   {
     "Author": "Moon Magic Team",
     "Name": "Moon Magic",
-    "Description": "Penumbra conflict manager + Glamourer one-click switching + importer from Mare/Snowcloak.",
-    "InternalName": "MoonMagic",         // must match Manifest.json
+    "Punchline": "Wardrobe conflicts + Glamourer one-click.",
+    "Description": "Unified mod orchestration for FFXIV: Penumbra conflict manager (Wardrobe), Glamourer one-click outfits (Glamours), importer from Mare/Snowcloak, typed EULA consent, and a Ko-fi Donate button.",
+    "InternalName": "MoonMagic",
     "AssemblyVersion": "0.1.0",
-    "RepoUrl": "https://github.com/Moon-Magic-Z/Moon-Magic",      // <— YOU
+    "DalamudApiLevel": 13,
+    "RepoUrl": "https://github.com/Moon-Magic-Z/Moon-Magic",
     "ApplicableVersion": "any",
-    "DalamudApiLevel": 13,               // bump when Dalamud updates
-    "Punchline": "Wardrobe & Glamours, one click.",
-    "IsHide": false,
-    "IsTestingExclusive": false,
+    "Tags": ["mods", "penumbra", "glamourer", "sync", "wardrobe"],
+    "CategoryTags": ["UI", "Customization"],
+    "Changelog": "Initial public build.",
+    "LoadPriority": 0,
 
-    // After your first release tag (v0.1.0), change <TAG> below to v0.1.0
-    "DownloadLinkInstall": "https://github.com/Moon-Magic-Z/Moon-Magic/releases/download/<TAG>/latest.zip",
-    "DownloadLinkUpdate":  "https://github.com/Moon-Magic-Z/Moon-Magic/releases/download/<TAG>/latest.zip",
-
-    "LastUpdate": "1735510493",          // CI can overwrite; any Unix time ok initially
     "IconUrl": "https://raw.githubusercontent.com/Moon-Magic-Z/Moon-Magic/main/assets/icon-128.png",
-    "ImageUrls": []
+
+    "DownloadLinkInstall": "https://github.com/Moon-Magic-Z/Moon-Magic/releases/latest/download/latest.zip",
+    "DownloadLinkUpdate":  "https://github.com/Moon-Magic-Z/Moon-Magic/releases/latest/download/latest.zip"
   }
 ]
