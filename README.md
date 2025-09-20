@@ -94,5 +94,5 @@ Moon Magic is an **independent third-party plugin**.
 
 ## 💜 Support
 
-If you’d like to support development, click the purple **Donate** button in the plugin, or visit:  
+If you’d like to offer donations please visit here:  
 👉 [Ko‑fi.com/moonmagicz](https://ko-fi.com/moonmagicz)
