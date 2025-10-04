@@ -13,7 +13,7 @@
     "CategoryTags": ["UI","Customization"],
     "Changelog": "Initial public build.",
     "LoadPriority": 0,
-    "IconUrl": "https://raw.githubusercontent.com/Moon-Magic-Z/Moon-Magic/main/assets/icon-128.png",
+    "IconUrl": "https://raw.githubusercontent.com/Moon-Magic-Z/Moon-Magic/main/Assets/icon-128.png",
     "DownloadLinkInstall": "https://github.com/Moon-Magic-Z/Moon-Magic/releases/latest/download/latest.zip",
     "DownloadLinkUpdate":  "https://github.com/Moon-Magic-Z/Moon-Magic/releases/latest/download/latest.zip"
   }
